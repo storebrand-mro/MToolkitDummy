@@ -1,0 +1,51 @@
+plugins {
+    id 'com.skagenfondene.SKAGENVersioning'
+    id 'com.skagenfondene.SKAGENGradleConfig'
+}
+description = 'MToolkitDummy - Root/parent project'
+
+wrapper { gradleVersion = "7.3.3" }
+
+allprojects {
+    apply plugin: 'idea'
+
+    buildDir 'build-gradle'
+    group 'com.storebrand.mtoolkit'
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'com.skagenfondene.SKAGENVersioning'
+    apply plugin: 'com.skagenfondene.SKAGENGradleConfig'
+
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+
+    ext {
+        // Internal Libraries (MToolkits)
+        jettyWarVersion = '2.4.+'
+        // External Libraries
+        springVersion = '5.3.18'
+        constrettoSpring = '2.2.3'
+        jupiterVersion = '5.8.1'
+        javaxServletApiVersion = '3.1.0'
+    }
+
+    versioning {
+        mode = "library"
+    }
+
+    task sourceJar(type: Jar) {
+        getArchiveClassifier().set('sources')
+        from sourceSets.main.allSource
+        duplicatesStrategy DuplicatesStrategy.EXCLUDE
+    }
+
+    task verifyAll() {
+        dependsOn test
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+}

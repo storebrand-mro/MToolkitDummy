@@ -1,0 +1,22 @@
+pluginManagement {
+    repositories {
+        maven {
+            url "http://artifactory.skagenfondene.no/artifactory/libs-release"
+            allowInsecureProtocol true
+        }
+        maven {
+            url "http://artifactory.skagenfondene.no/artifactory/skagen-dev"
+            allowInsecureProtocol true
+        }
+    }
+    plugins {
+        id 'com.skagenfondene.SKAGENVersioning' version 'dev-0.2.2-c1-2022-10-04-g48936_4_1-ddb4b9d'
+        id 'com.skagenfondene.SKAGENGradleConfig' version '1.2.+'
+    }
+}
+dependencyResolutionManagement {
+    repositories.addAll(pluginManagement.repositories)
+}
+rootProject.name = 'MToolkitDummy'
+include 'mtoolkit-dummy', 'mtoolkit-dummy-testing'
+

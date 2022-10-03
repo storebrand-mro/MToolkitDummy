@@ -1,0 +1,36 @@
+// TODO :: Adds 'java-library' plugin, which provides the following notable sourceSets:
+// TODO :: api (transitive), implementation(non-transitive) - https://docs.gradle.org/current/userguide/java_library_plugin.html
+plugins {
+    id 'java-library'
+}
+
+dependencies {
+    // ################################################################################################################
+    // ### Api dependencies, these dependencies will be added to the compile classpath of the consumer.
+    // ### These dependencies contain classes which the end consumer will interact with in their own code.
+    // ################################################################################################################
+
+    //api"INSERT:DEPENDENCY:VERSION"
+
+    // ################################################################################################################
+    // ### Dependencies found in the implementation configuration will, on the other hand, not be exposed to consumers,
+    // ### and therefore not leak into the consumers' compile classpath. The dependency will still be transitive wrt the
+    // ### runtime dependencies. These are internal library dependencies which the end consumer does not necessarily
+    // ### interact with. Should the consumer need to interact with anything provided within these dependencies then
+    // ### the consumer will have to explicitly define this in their project.
+    // ################################################################################################################
+
+    //implementation "INSERT:DEPENDENCY:VERSION"
+
+    // ################################################################################################################
+    // ### Test dependencies - Only applies to this project. (Not transitive)
+    // ################################################################################################################
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$jupiterVersion"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$jupiterVersion"
+}
+
+skagenPublication {
+    from components.java
+    artifact sourceJar
+    artifactId 'mtoolkit-dummy-testing'
+}
